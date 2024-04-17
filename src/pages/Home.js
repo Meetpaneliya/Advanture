@@ -2,6 +2,10 @@ import React from 'react';
 import { IoLocationSharp } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { useState } from 'react';
+import { Placecard } from '../components/Placecard';
+import data from '../data';
+import follow from '../assets/Screenshot_2024-04-16_202159-removebg-preview.png'
+import logo from '../assets/logoimg-removebg-preview.png'
 
 const Home = () => {
 
@@ -17,7 +21,7 @@ const Home = () => {
   };
 
   return (
-    <div className='flex justify-center items-center mt-24'>
+    <div className='flex-col justify-center items-center mt-14'>
 
       <div className="text-center flex flex-col items-center">
         <h1 className='text-5xl font-extrabold'>Life's an <span className=' text-blue-900'>adventure</span>, live it!</h1>
@@ -64,7 +68,27 @@ const Home = () => {
 
       </div>
 
+      <hr class="w-full mt-4 mb-4 border-dotted border-black"></hr>
 
+      <div className='flex gap-10 mt-16'>
+        {
+          data.map(item => (
+            <div key={item.id}>
+              <Placecard item={item} />
+            </div>
+          ))
+        }
+      </div>
+
+      <div className="flex items-center justify-between pl-16 pr-16 mt-5">
+        <div>
+          <img src={logo} alt="" className='w-36' />
+        </div>
+        <div className='flex items-center'>
+          <p>Follow us:</p>
+          <img src={follow} alt="" className='w-28 ml-2' />
+        </div>
+      </div>
 
     </div>
   );
