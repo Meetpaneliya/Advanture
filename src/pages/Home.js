@@ -16,7 +16,7 @@ const Home = () => {
   const handlecheckin = (event) => {
     setSelectedcheckin(event.target.value);
   };
-  
+
   const handlecheckout = (event) => {
     setSelectedcheckout(event.target.value);
   }
@@ -72,7 +72,7 @@ const Home = () => {
           </div>
 
           <div className='flex border-r-2'></div>
-          
+
           <div className='flex pr-3 gap-3'>
             <IoCalendarOutline className='h-8 w-8 mt-1' />
 
@@ -94,23 +94,25 @@ const Home = () => {
 
       <hr class="w-full mt-4 mb-4 border-dotted border-black"></hr>
 
-      <div className='flex gap-10 mt-16'>
-        {
-          data.map(item => (
-            <div key={item.id}>
-              <Placecard item={item} />
-            </div>
-          ))
-        }
-      </div>
-
-      <div className="flex items-center justify-between pl-16 pr-16 mt-5">
-        <div>
-          <img src={logo} alt="" className='w-36' />
+      <div>
+        <div className='flex gap-10 mt-16'>
+          {
+            data.map(item => (
+              <div key={item.id}>
+                <Placecard item={item} />
+              </div>
+            ))
+          }
         </div>
-        <div className='flex items-center'>
-          <p>Follow us:</p>
-          <img src={follow} alt="" className='w-28 ml-2' />
+
+        <div className="flex items-center justify-between pl-16 pr-16 mt-5">
+          <div>
+            <img src={logo} alt="" className='w-36' />
+          </div>
+          <div className='flex items-center'>
+            <p>Follow us:</p>
+            <img src={follow} alt="" className='w-28 ml-2' />
+          </div>
         </div>
       </div>
 

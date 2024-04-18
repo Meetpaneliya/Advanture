@@ -35,13 +35,6 @@ export const Placecard = ({ item }) => {
     console.log(formData);
     setformsubmitted(true);
 
-    setFormData({
-      email: '',
-      username: '',
-      checkin: '',
-      checkout: ''
-    });
-    
   };
 
   const loadScript = (src) => {
@@ -74,15 +67,23 @@ export const Placecard = ({ item }) => {
       key: "rzp_test_mpl4mEFOrxfsxU",
       currency: "INR",
       amount: amount * 100,
-      name: "Thanks For Working With Team 404",
-      description: "Thanks for purchasing",
+      name: "SheStay",
+      description: "Thanks for Booking",  
 
       handler: function (response) {
         alert(response.razorpay_payment_id);
         alert("Payment Successfully");
+        toggleForm();
+        setFormData({
+          email: '',
+          username: '',
+          checkin: '',
+          checkout: ''
+       });
+
       },
       prefill: {
-        name: "pay with team 404",
+        name: "pay with SheStay",
       },
       modal: {
         ondismiss: function () {
@@ -92,6 +93,7 @@ export const Placecard = ({ item }) => {
         width: Math.min(window.innerWidth - 60, 400),
       },
     };
+    
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
@@ -125,6 +127,7 @@ export const Placecard = ({ item }) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+
             <h2 className="text-xl font-semibold mb-4">Booking Form</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -187,7 +190,7 @@ export const Placecard = ({ item }) => {
                   name="checkout"
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-x-9">
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
@@ -195,12 +198,12 @@ export const Placecard = ({ item }) => {
                   Book
                 </button>
 
-                {formsubmitted && (<button
-                  className="block w-full mt-4 bg-blue-500 text-white rounded-md p-2 hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-                  onClick={() => displayRazorpay(2000)}
-                >
-                  Pay Now
-                </button>)}
+                  {formsubmitted && (<button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onClick={() => displayRazorpay(2000)}
+                  >
+                    Pay Now
+                  </button>)}
               </div>
             </form>
           </div>
