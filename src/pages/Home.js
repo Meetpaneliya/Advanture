@@ -9,12 +9,17 @@ import logo from '../assets/logoimg-removebg-preview.png'
 
 const Home = () => {
 
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedcheckin, setSelectedcheckin] = useState('');
+  const [selectedcheckout, setSelectedcheckout] = useState('');
   const [location, setLocation] = useState('');
 
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+  const handlecheckin = (event) => {
+    setSelectedcheckin(event.target.value);
   };
+  
+  const handlecheckout = (event) => {
+    setSelectedcheckout(event.target.value);
+  }
 
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
@@ -49,6 +54,7 @@ const Home = () => {
           </div>
 
           <div className='flex border-r-2'></div>
+
           <div className='flex pr-3 gap-3'>
             <IoCalendarOutline className='h-8 w-8 mt-1' />
 
@@ -57,10 +63,28 @@ const Home = () => {
                 type='date'
                 placeholder='Date'
                 className="bg-slate-500"
-                onChange={handleDateChange}
+                onChange={handlecheckin}
               />
-              <p className='font-semibold mt-1'>
-                {selectedDate ? new Date(selectedDate).toDateString() : 'Select a date'}
+              <p className='font-semibold mt-1 mr-8'>
+                {selectedcheckin ? new Date(selectedcheckin).toDateString() : 'Check In'}
+              </p>
+            </div>
+          </div>
+
+          <div className='flex border-r-2'></div>
+          
+          <div className='flex pr-3 gap-3'>
+            <IoCalendarOutline className='h-8 w-8 mt-1' />
+
+            <div className='flex-col'>
+              <input
+                type='date'
+                placeholder='Date'
+                className="bg-slate-500"
+                onChange={handlecheckout}
+              />
+              <p className='font-semibold mt-1 mr-8'>
+                {selectedcheckout ? new Date(selectedcheckout).toDateString() : 'Check Out'}
               </p>
             </div>
           </div>

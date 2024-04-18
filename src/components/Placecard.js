@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 
 export const Placecard = ({ item }) => {
 
@@ -9,6 +8,95 @@ export const Placecard = ({ item }) => {
   let km = item.km;
   let star = item.star;
   let point = item.point;
+
+  const [showForm, setShowForm] = useState(false);
+  const [formsubmitted, setformsubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    username: '',
+    checkin: '',
+    checkout: ''
+  });
+
+  const toggleForm = () => {
+    setShowForm(!showForm);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setformsubmitted(true);
+
+    setFormData({
+      email: '',
+      username: '',
+      checkin: '',
+      checkout: ''
+    });
+    
+  };
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+
+      script.onload = () => {
+        resolve(true);
+      };
+
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  const displayRazorpay = async (amount) => {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("You are offline... Failed to load Razorpay SDK");
+      return;
+    }
+    const options = {
+      key: "rzp_test_mpl4mEFOrxfsxU",
+      currency: "INR",
+      amount: amount * 100,
+      name: "Thanks For Working With Team 404",
+      description: "Thanks for purchasing",
+
+      handler: function (response) {
+        alert(response.razorpay_payment_id);
+        alert("Payment Successfully");
+      },
+      prefill: {
+        name: "pay with team 404",
+      },
+      modal: {
+        ondismiss: function () {
+          alert('Payment window closed');
+        },
+        escape: true,
+        width: Math.min(window.innerWidth - 60, 400),
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+
+  }
 
   return (
 
@@ -25,12 +113,99 @@ export const Placecard = ({ item }) => {
             <p className='text-gray-300'>{star}⭐ {point}</p>
           </div>
 
+          <button className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-3 rounded mt-2 " onClick={toggleForm}>Book Now</button>
         </div>
       </div>
 
-      
+      {showForm && (
+        <div className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
+          <div className="bg-white p-8 rounded-lg shadow-md relative">
+            <button className="absolute top-0 right-0 mr-2 mt-2" onClick={toggleForm}>
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <h2 className="text-xl font-semibold mb-4">Booking Form</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                  Username:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  name="username"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                  Email:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  name="email"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="checkin">
+                  Check-in Date:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="checkin"
+                  type="date"
+                  placeholder="Select check-in date"
+                  value={formData.checkin}
+                  onChange={handleChange}
+                  required
+                  name="checkin"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="checkout">
+                  Check-out Date:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="checkout"
+                  type="date"
+                  placeholder="Select check-out date"
+                  value={formData.checkout}
+                  onChange={handleChange}
+                  required
+                  name="checkout"
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  type="submit"
+                >
+                  Book
+                </button>
+
+                {formsubmitted && (<button
+                  className="block w-full mt-4 bg-blue-500 text-white rounded-md p-2 hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                  onClick={() => displayRazorpay(2000)}
+                >
+                  Pay Now
+                </button>)}
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
-
-
   )
 }
