@@ -53,10 +53,11 @@ const Navbar = () => {
     };
 
     const handleSave = () => {
-        // Handle saving the updated profile data here
+        
         console.log('Profile updated:', formData);
-        setshowUpdateform(false); // Close the update form after saving
-        setIsUpdating(false); // Reset isUpdating state after saving
+        setshowUpdateform(false); 
+        setIsUpdating(false); 
+        setDisabled(true);
     };
 
     return (
@@ -89,7 +90,6 @@ const Navbar = () => {
                 </Link>
 
                 <div>
-
                     {!profileCreated ? (<FaUserCircle className="h-10 w-10"
                         onClick={toggleForm} />) : (<FaUserEdit className="h-10 w-10" onClick={toggleUpdateForm} />)}
 
