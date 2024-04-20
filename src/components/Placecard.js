@@ -79,8 +79,8 @@ export const Placecard = ({ item }) => {
           username: '',
           checkin: '',
           checkout: ''
-      });
-    },
+        });
+      },
       prefill: {
         name: "pay with SheStay",
       },
@@ -101,33 +101,33 @@ export const Placecard = ({ item }) => {
     const publicKey = 'WY3vuzq7SgXRPvWeV';
 
     const message = `
-    Subject: Secure Your Stay: Booking Confirmation at tranquil resort!
+    Subject: Booking Confirmation: Your Stay at Our Serene Retreat
 
-    Dear [formData.username],
+    Dear ${formData.username},
     
-    We are thrilled to confirm your booking for a memorable stay at tranquil resort! Your reservation is confirmed for [formData.checkin] to [formData.checkout]. Get ready to embark on an unforgettable getaway filled with relaxation, adventure, and unparalleled hospitality.
+    We're delighted to confirm your booking at our serene retreat! Your reservation spans from ${formData.checkin} to ${formData.checkout}. Get ready for an unforgettable getaway filled with relaxation, adventure, and top-notch hospitality.
     
     Accommodation:
-    During your stay, you will be accommodated in our luxurious room. Each room is meticulously designed to provide comfort and elegance, ensuring a rejuvenating experience amidst breathtaking surroundings.
+    You'll be staying in our luxurious room, meticulously designed for comfort and elegance, ensuring a rejuvenating experience amidst stunning surroundings.
     
     Facilities:
-    At tranquil resort, we believe in offering a comprehensive range of facilities to enhance your stay:
+    Enjoy our comprehensive facilities:
     
-    Sparkling Swimming Pool: Take a refreshing dip or lounge by the poolside under the radiant sun.
-    Exquisite Dining Options: Indulge in delectable cuisines at our onsite restaurants, catering to every palate.
-    Spa and Wellness Center: Pamper yourself with rejuvenating spa treatments and therapies to unwind and recharge.
-    Fitness Center: Stay active and energized with state-of-the-art fitness equipment and personalized training sessions.
-    Recreational Activities: Engage in a plethora of exciting activities such as water sports, nature trails, and cultural experiences.
-    Kids' Club: Let your little ones explore, learn, and have endless fun in a safe and supervised environment.
+    Sparkling Swimming Pool
+    Exquisite Dining Options
+    Spa and Wellness Center
+    Fitness Center
+    Recreational Activities
+    Kids' Club
     Security:
-    Your safety and security are our utmost priorities. tranquil resort is equipped with round-the-clock surveillance, trained security personnel, and advanced security systems to ensure a worry-free stay for all our guests.
+    Your safety is our top priority. Our resort is equipped with 24/7 surveillance and trained personnel to ensure a worry-free stay.
     
-    Excursions and Local Attractions:
-    Explore the enchanting surroundings and immerse yourself in the local culture with our curated excursions and sightseeing tours. From scenic nature trails to cultural landmarks, there's something for everyone to discover and cherish.
+    Excursions:
+    Explore the local culture with our curated excursions and sightseeing tours.
     
-    We are committed to providing you with a seamless and delightful experience throughout your stay. Should you have any special requests or requirements, please feel free to reach out to our concierge team, who will be delighted to assist you.
+    We're committed to making your stay seamless and delightful. For any special requests, our concierge team is here to assist.
     
-    We eagerly await your arrival and look forward to creating cherished memories together at tranquil resort. If you have any further questions or need assistance, please feel free to contact us at 7854625841.
+    We can't wait to welcome you and create lasting memories together at our serene retreat.
     
     Best regards,
     SheStay
@@ -248,12 +248,12 @@ export const Placecard = ({ item }) => {
                   Book
                 </button>
 
-                  {formsubmitted && (<button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    onClick={() => displayRazorpay(2000)}
-                  >
-                    Pay Now
-                  </button>)}
+                {formsubmitted && (<button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={() => displayRazorpay(2000)}
+                >
+                  Pay Now
+                </button>)}
               </div>
             </form>
           </div>
