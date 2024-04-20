@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import emailjs from '@emailjs/browser';
 
 export const Placecard = ({ item }) => {
 
@@ -34,7 +35,6 @@ export const Placecard = ({ item }) => {
     e.preventDefault();
     console.log(formData);
     setformsubmitted(true);
-
   };
 
   const loadScript = (src) => {
@@ -68,7 +68,7 @@ export const Placecard = ({ item }) => {
       currency: "INR",
       amount: amount * 100,
       name: "SheStay",
-      description: "Thanks for Booking",  
+      description: "Thanks for Booking",
 
       handler: function (response) {
         alert(response.razorpay_payment_id);
@@ -79,9 +79,8 @@ export const Placecard = ({ item }) => {
           username: '',
           checkin: '',
           checkout: ''
-       });
-
-      },
+      });
+    },
       prefill: {
         name: "pay with SheStay",
       },
@@ -93,12 +92,63 @@ export const Placecard = ({ item }) => {
         width: Math.min(window.innerWidth - 60, 400),
       },
     };
-    
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
 
-  }
+    const service_id = 'service_ofpkqxm';
+    const template_id = 'template_zzznf2q';
+    const publicKey = 'WY3vuzq7SgXRPvWeV';
+
+    const message = `
+    Subject: Secure Your Stay: Booking Confirmation at tranquil resort!
+
+    Dear [formData.username],
+    
+    We are thrilled to confirm your booking for a memorable stay at tranquil resort! Your reservation is confirmed for [formData.checkin] to [formData.checkout]. Get ready to embark on an unforgettable getaway filled with relaxation, adventure, and unparalleled hospitality.
+    
+    Accommodation:
+    During your stay, you will be accommodated in our luxurious room. Each room is meticulously designed to provide comfort and elegance, ensuring a rejuvenating experience amidst breathtaking surroundings.
+    
+    Facilities:
+    At tranquil resort, we believe in offering a comprehensive range of facilities to enhance your stay:
+    
+    Sparkling Swimming Pool: Take a refreshing dip or lounge by the poolside under the radiant sun.
+    Exquisite Dining Options: Indulge in delectable cuisines at our onsite restaurants, catering to every palate.
+    Spa and Wellness Center: Pamper yourself with rejuvenating spa treatments and therapies to unwind and recharge.
+    Fitness Center: Stay active and energized with state-of-the-art fitness equipment and personalized training sessions.
+    Recreational Activities: Engage in a plethora of exciting activities such as water sports, nature trails, and cultural experiences.
+    Kids' Club: Let your little ones explore, learn, and have endless fun in a safe and supervised environment.
+    Security:
+    Your safety and security are our utmost priorities. tranquil resort is equipped with round-the-clock surveillance, trained security personnel, and advanced security systems to ensure a worry-free stay for all our guests.
+    
+    Excursions and Local Attractions:
+    Explore the enchanting surroundings and immerse yourself in the local culture with our curated excursions and sightseeing tours. From scenic nature trails to cultural landmarks, there's something for everyone to discover and cherish.
+    
+    We are committed to providing you with a seamless and delightful experience throughout your stay. Should you have any special requests or requirements, please feel free to reach out to our concierge team, who will be delighted to assist you.
+    
+    We eagerly await your arrival and look forward to creating cherished memories together at tranquil resort. If you have any further questions or need assistance, please feel free to contact us at 7854625841.
+    
+    Best regards,
+    SheStay
+      
+    `;
+
+    const templateParams = {
+      from_name: "SheStay",
+      from_email: "SheStay01@gmail.com",
+      to_email: formData.email,
+      message: message
+    };
+
+    emailjs.send(service_id, template_id, templateParams, publicKey)
+      .then((response) => {
+        console.log('email sent successfully!', response);
+      })
+      .catch((error) => {
+        console.log('error sending email:', error);
+      });
+  };
 
   return (
 
